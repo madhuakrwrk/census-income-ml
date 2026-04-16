@@ -1,0 +1,17 @@
+# Runtime dependencies for the Census Income modeling project.
+#
+# Pins are upper-bounded loosely — they reflect the versions used to
+# produce the artifacts in artifacts/ but should work with any compatible
+# minor release.
+numpy>=2.0,<3
+pandas>=2.2,<3
+scipy>=1.13,<2
+scikit-learn>=1.5,<2
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+joblib>=1.4,<2
+kmodes>=0.12,<0.13
+optuna>=3.6,<5
+tqdm>=4.66,<5
+fpdf2>=2.8,<3
+Pillow>=10.0,<12
