@@ -69,9 +69,7 @@ class ReportPDF(FPDF):
     def footer(self):  # noqa: D401 - FPDF API
         self.set_y(-10)
         self.set_font("helvetica", "I", 8)
-        self.set_text_color(120, 120, 120)
         self.cell(0, 6, f"Page {self.page_no()}", align="C")
-        self.set_text_color(0, 0, 0)
 
 
 def _set_style(pdf: FPDF, name: str) -> tuple[float, float]:
@@ -132,10 +130,8 @@ def _render_inline(pdf: FPDF, text: str) -> None:
 def _render_image(pdf: FPDF, path: Path, caption: str | None = None) -> None:
     """Emit an image, centred, with a caption. Page-break if it won't fit."""
     if not path.exists():
-        pdf.set_text_color(200, 0, 0)
         _set_style(pdf, "body")
         pdf.multi_cell(0, 5, f"[missing figure: {path}]")
-        pdf.set_text_color(0, 0, 0)
         return
 
     # A4 width minus margins, image gets 55% of that so multiple figures fit
@@ -161,9 +157,7 @@ def _render_image(pdf: FPDF, path: Path, caption: str | None = None) -> None:
 
     if caption:
         _set_style(pdf, "caption")
-        pdf.set_text_color(110, 110, 110)
         pdf.multi_cell(0, 4, _sanitize(caption), align="C")
-        pdf.set_text_color(0, 0, 0)
         pdf.ln(2)
 
 
@@ -243,18 +237,14 @@ def render(src: Path = SRC, dst: Path = DST) -> None:
         if line.startswith("## "):
             top, bot = _set_style(pdf, "h2")
             pdf.ln(top)
-            pdf.set_text_color(20, 60, 130)
             pdf.multi_cell(0, 6, _sanitize(line[3:]))
-            pdf.set_text_color(0, 0, 0)
             pdf.ln(bot)
             i += 1
             continue
         if line.startswith("# "):
             top, bot = _set_style(pdf, "h1")
             pdf.ln(top)
-            pdf.set_text_color(20, 40, 90)
             pdf.multi_cell(0, 8, _sanitize(line[2:]))
-            pdf.set_text_color(0, 0, 0)
             pdf.ln(bot)
             i += 1
             continue
